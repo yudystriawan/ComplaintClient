@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Complaint Client</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="submit">Login</string>
+    <string name="send_complaint">send complaint</string>
+    <string name="buttonLogin">Login</string>
+    <string name="setting">Setting</string>
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+    <string name="home">Home</string>
+    <string name="nama_lengkap">Nama lengkap</string>
+    <string name="email">Email</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="register">Register</string>
+</resources>
