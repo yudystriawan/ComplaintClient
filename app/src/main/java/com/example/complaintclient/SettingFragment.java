@@ -34,7 +34,7 @@ public class SettingFragment extends Fragment {
                 sessionManager.destroy();
             });
         } else {
-            text.setText("LoginActivity");
+            text.setText("Login");
             action.setOnClickListener(v -> {
                 Intent intent = new Intent(rootView.getContext(), LoginActivity.class);
                 startActivity(intent);
