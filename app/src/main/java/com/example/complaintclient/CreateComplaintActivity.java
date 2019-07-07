@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ public class CreateComplaintActivity extends AppCompatActivity {
     private TextInputLayout textInputTopic;
     private Spinner spinnerCategory;
     private EditText editTextBody;
+    private  ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class CreateComplaintActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.create_complaint_category);
         editTextBody = findViewById(R.id.create_complaint_body);
 
+        loading = findViewById(R.id.progressBar);
+        loading.setVisibility(View.GONE);
     }
 
     @Override
@@ -70,9 +76,11 @@ public class CreateComplaintActivity extends AppCompatActivity {
     }
 
     private void sendComplaint() {
+
         String topic = textInputTopic.getEditText().getText().toString();
         String category = spinnerCategory.getSelectedItem().toString();
         String body = editTextBody.getText().toString();
+
 
         if (body.isEmpty() || topic.isEmpty()) {
             Toast.makeText(this, "Form tidak boleh kosong", Toast.LENGTH_SHORT).show();
@@ -83,8 +91,13 @@ public class CreateComplaintActivity extends AppCompatActivity {
                     body,
                     category
             );
+            loading.setVisibility(View.VISIBLE);
 
             Call<String> call = service.createComplaint(complaint);
+
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
             call.enqueue(new Callback<String>() {
                 @Override
@@ -105,6 +118,10 @@ public class CreateComplaintActivity extends AppCompatActivity {
 
     private void show(String responseString) {
         Toast.makeText(this, responseString, Toast.LENGTH_LONG).show();
+
+        loading.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
